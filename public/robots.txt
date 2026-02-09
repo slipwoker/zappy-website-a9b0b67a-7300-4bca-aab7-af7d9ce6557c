@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://goblin-shark-a9b0b67a.zappy5.app/sitemap.xml

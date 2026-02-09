@@ -1,0 +1,724 @@
+<!DOCTYPE html><html lang="en" dir="ltr"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Company Insights - Goblin Shark</title>
+  <meta name="description" content="Company Insights - Goblin Shark provides professional HR technology / recruitment services. Specializing in salary comparison by city.">
+  <meta name="keywords" content="salary comparison by city, glassdoor salary comparison, salary comparison tool, Goblin Shark">
+  <meta name="robots" content="index, follow">
+  
+  <meta property="og:title" content="Company Insights - Goblin Shark">
+  <meta property="og:description" content="Company Insights - Goblin Shark provides professional HR technology / recruitment services. Specializing in salary comparison by city.">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US">
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Company Insights - Goblin Shark">
+  <meta name="twitter:description" content="Company Insights - Goblin Shark provides professional HR technology / recruitment services. Specializing in salary comparison by city.">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48x48.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/assets/favicon-512x512.png">
+    <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+    <!-- Cookie Consent -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@3/dist/cookieconsent.umd.js"></script>
+    <!-- Mickidum Accessibility Toolbar -->
+    <script src="https://cdn.jsdelivr.net/gh/mickidum/acc_toolbar/acctoolbar/acctoolbar.min.js"></script>
+<!-- Zappy Analytics -->
+<script>
+(function() {
+  'use strict';
+  
+  // Configuration
+  var config = {
+    websiteId: 'a9b0b67a-7300-4bca-aab7-af7d9ce6557c',
+    apiUrl: 'https://api.zappy5.com/api/analytics/track',
+    sessionDuration: 30 * 60 * 1000, // 30 minutes
+    visitorDuration: 30 * 24 * 60 * 60 * 1000, // 30 days
+    trackPageViews: true,
+    trackClicks: true,
+    trackFormSubmissions: true
+  };
+  
+  // Generate or retrieve persistent visitor ID (30 days)
+  function getVisitorId() {
+    var visitorKey = 'zappy_visitor_' + config.websiteId;
+    var visitor = null;
+    
+    try {
+      visitor = localStorage.getItem(visitorKey);
+      if (visitor) {
+        var visitorData = JSON.parse(visitor);
+        var now = Date.now();
+        
+        // Check if visitor ID is still valid (30 days)
+        if (now - visitorData.created < config.visitorDuration) {
+          // Update last seen timestamp
+          visitorData.lastSeen = now;
+          localStorage.setItem(visitorKey, JSON.stringify(visitorData));
+          return visitorData.id;
+        }
+      }
+    } catch (e) {
+      console.warn('Zappy Analytics: LocalStorage not available');
+    }
+    
+    // Generate new visitor ID
+    var newVisitorId = 'zv_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    
+    try {
+      localStorage.setItem(visitorKey, JSON.stringify({
+        id: newVisitorId,
+        created: Date.now(),
+        lastSeen: Date.now()
+      }));
+    } catch (e) {
+      // Continue without local storage
+    }
+    
+    return newVisitorId;
+  }
+  
+  // Generate or retrieve session ID (30 minutes)
+  function getSessionId() {
+    var sessionKey = 'zappy_session_' + config.websiteId;
+    var session = null;
+    
+    try {
+      session = sessionStorage.getItem(sessionKey);
+      if (session) {
+        var sessionData = JSON.parse(session);
+        var now = Date.now();
+        
+        // Check if session is still valid
+        if (now - sessionData.timestamp < config.sessionDuration) {
+          // Update timestamp
+          sessionData.timestamp = now;
+          sessionStorage.setItem(sessionKey, JSON.stringify(sessionData));
+          return sessionData.id;
+        }
+      }
+    } catch (e) {
+      console.warn('Zappy Analytics: SessionStorage not available');
+    }
+    
+    // Generate new session ID
+    var newSessionId = 'zs_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    
+    try {
+      sessionStorage.setItem(sessionKey, JSON.stringify({
+        id: newSessionId,
+        timestamp: Date.now()
+      }));
+    } catch (e) {
+      // Continue without session storage
+    }
+    
+    return newSessionId;
+  }
+  
+  var visitorId = getVisitorId();
+  var sessionId = getSessionId();
+  
+  // Track an event
+  function trackEvent(eventType, data) {
+    data = data || {};
+    
+    var eventData = {
+      website_id: config.websiteId,
+      event_type: eventType,
+      page_path: window.location.pathname,
+      referrer: document.referrer || 'direct',
+      visitor_id: visitorId,
+      session_id: sessionId,
+      metadata: data
+    };
+    
+    // Use sendBeacon if available (better for page unload events)
+    if (navigator.sendBeacon) {
+      var blob = new Blob([JSON.stringify(eventData)], { type: 'application/json' });
+      navigator.sendBeacon(config.apiUrl, blob);
+    } else {
+      // Fallback to fetch
+      fetch(config.apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(eventData),
+        keepalive: true
+      }).catch(function(error) {
+        console.warn('Zappy Analytics: Failed to track event', error);
+      });
+    }
+  }
+  
+  // Track page view
+  if (config.trackPageViews) {
+    trackEvent('pageview', {
+      title: document.title,
+      url: window.location.href
+    });
+  }
+  
+  // Track clicks on important elements
+  if (config.trackClicks) {
+    document.addEventListener('click', function(e) {
+      var target = e.target;
+      
+      // Track button clicks (counted as actions)
+      if (target.tagName === 'BUTTON' || target.closest('button')) {
+        var button = target.tagName === 'BUTTON' ? target : target.closest('button');
+        trackEvent('click', {
+          element: 'button',
+          text: button.textContent.trim().substring(0, 100),
+          id: button.id || null,
+          class: button.className || null
+        });
+      }
+      
+      // Track link clicks (navigation - not counted as actions)
+      else if (target.tagName === 'A' || target.closest('a')) {
+        var link = target.tagName === 'A' ? target : target.closest('a');
+        trackEvent('navigation', {
+          element: 'link',
+          text: link.textContent.trim().substring(0, 100),
+          href: link.href,
+          external: link.hostname !== window.location.hostname
+        });
+      }
+    }, true);
+  }
+  
+  // Track form submissions
+  if (config.trackFormSubmissions) {
+    document.addEventListener('submit', function(e) {
+      var form = e.target;
+      
+      trackEvent('form_submit', {
+        form_id: form.id || null,
+        form_name: form.name || null,
+        form_action: form.action || null,
+        form_method: form.method || 'GET'
+      });
+    }, true);
+  }
+  
+  // Track time on page (send on page unload)
+  var pageLoadTime = Date.now();
+  
+  window.addEventListener('beforeunload', function() {
+    var timeOnPage = Math.floor((Date.now() - pageLoadTime) / 1000); // in seconds
+    
+    trackEvent('page_unload', {
+      time_on_page: timeOnPage,
+      page_path: window.location.pathname
+    });
+  });
+  
+  // Expose tracking function globally for custom events
+  window.zappyAnalytics = {
+    track: trackEvent,
+    getVisitorId: function() { return visitorId; },
+    getSessionId: function() { return sessionId; }
+  };
+  
+})();
+</script>
+<!-- End Zappy Analytics -->
+
+    <style id="zappy-dropdown-submenu-styles">
+      /* ========== DESKTOP DROPDOWN SUBMENU STYLES ========== */
+      /* Base styles for dropdown submenus - parent must be positioned */
+      .nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu) { position: relative; }
+      /* Submenu base - hidden by default */
+      .nav-menu .sub-menu, nav .sub-menu, .navbar .sub-menu, #navMenu .sub-menu { display: block !important; position: absolute !important; top: 100%; left: 0; min-width: 220px; background: white; border-radius: 8px; box-shadow: 0 8px 25px rgba(0,0,0,0.15); padding: 8px 0; opacity: 0; visibility: hidden; transform: translateY(10px); transition: all 0.3s ease; z-index: 1000; list-style: none; pointer-events: none; }
+      /* CRITICAL: Desktop hover styles to show dropdown */
+      .nav-menu li:hover > .sub-menu, nav li:hover > .sub-menu, .navbar li:hover > .sub-menu, #navMenu li:hover > .sub-menu { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; pointer-events: auto !important; }
+      /* Submenu item styling */
+      .sub-menu li { list-style: none; margin: 0; padding: 0; }
+      .sub-menu a { display: block !important; padding: 10px 16px !important; color: #333 !important; font-weight: 500; text-decoration: none; white-space: nowrap; transition: background-color 0.2s; }
+      .sub-menu a:hover { background-color: #f5f5f5; }
+      /* RTL (Hebrew/Arabic) dropdown positioning */
+      [dir="rtl"] .nav-menu .sub-menu, [dir="rtl"] nav .sub-menu, [dir="rtl"] .navbar .sub-menu, html[lang="he"] .nav-menu .sub-menu, html[lang="he"] nav .sub-menu, html[lang="he"] .navbar .sub-menu, html[lang="ar"] .nav-menu .sub-menu, html[lang="ar"] nav .sub-menu, html[lang="ar"] .navbar .sub-menu { left: auto !important; right: 0 !important; }
+      /* Hide empty dropdown menus */
+      .sub-menu:empty, .sub-menu:not(:has(li:not(.zappy-hidden-menu-item))), .sub-menu:not(:has(li)) { display: none !important; opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
+      /* Desktop: show submenu on Menu Group hover */
+      li:has(.menu-group-title):hover > .sub-menu { opacity: 1 !important; visibility: visible !important; transform: translateY(0) !important; pointer-events: auto !important; }
+      /* Menu Group title styling */
+      .nav-menu > li > .menu-group-title, #navMenu > li > .menu-group-title { display: inline-block; padding: 0.5rem 1rem; cursor: default; user-select: none; }
+      
+      /* ========== MOBILE SUBMENU STYLES ========== */
+      @media (max-width: 768px) {
+        .nav-menu .sub-menu, nav .sub-menu, .navbar .sub-menu, #navMenu .sub-menu { position: static !important; transform: none !important; box-shadow: none !important; background: transparent !important; max-height: 0; overflow: hidden; opacity: 0; visibility: hidden; transition: max-height 0.3s ease, opacity 0.3s ease; padding: 0 !important; border-radius: 0 !important; }
+        .sub-menu.mobile-expanded { max-height: 500px !important; opacity: 1 !important; visibility: visible !important; padding: 8px 0 8px 16px !important; }
+        [dir="rtl"] .sub-menu.mobile-expanded, html[lang="he"] .sub-menu.mobile-expanded { padding: 8px 16px 8px 0 !important; }
+        /* Disable hover behavior on mobile */
+        .nav-menu li:hover > .sub-menu, nav li:hover > .sub-menu, .navbar li:hover > .sub-menu, #navMenu li:hover > .sub-menu { opacity: 0; visibility: hidden; pointer-events: none; }
+        .nav-menu li > .sub-menu.mobile-expanded, nav li > .sub-menu.mobile-expanded, .navbar li > .sub-menu.mobile-expanded, #navMenu li > .sub-menu.mobile-expanded { opacity: 1 !important; visibility: visible !important; pointer-events: auto !important; }
+        .nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu) { display: flex !important; flex-wrap: wrap !important; align-items: center !important; }
+        .nav-menu li:has(.sub-menu) > a, nav li:has(.sub-menu) > a, .navbar li:has(.sub-menu) > a, #navMenu li:has(.sub-menu) > a { flex: 1 !important; }
+        .nav-menu li:has(.sub-menu) > a [class*="chevron"], .nav-menu li:has(.sub-menu) > a [class*="arrow"], .nav-menu li:has(.sub-menu) > a .fa-chevron-down, .nav-menu li:has(.sub-menu) > a .fa-angle-down, nav li:has(.sub-menu) > a [class*="chevron"], nav li:has(.sub-menu) > a [class*="arrow"], #navMenu li:has(.sub-menu) > a [class*="chevron"], #navMenu li:has(.sub-menu) > a [class*="arrow"] { display: none !important; visibility: hidden !important; }
+        .mobile-submenu-toggle { display: flex !important; align-items: center !important; justify-content: center !important; width: 44px !important; height: 44px !important; background: transparent !important; border: none !important; cursor: pointer !important; }
+        .mobile-submenu-toggle::after { content: '' !important; width: 0 !important; height: 0 !important; border-left: 6px solid transparent !important; border-right: 6px solid transparent !important; border-top: 7px solid currentColor !important; transition: transform 0.3s ease !important; }
+        .mobile-submenu-toggle.expanded::after { transform: rotate(180deg) !important; }
+        .nav-menu li:has(.sub-menu) > .sub-menu, nav li:has(.sub-menu) > .sub-menu { flex-basis: 100% !important; width: 100% !important; }
+        .sub-menu a { padding: 10px 0 !important; display: block !important; }
+        .nav-menu li:has(.sub-menu) > .menu-group-title, nav li:has(.sub-menu) > .menu-group-title, .navbar li:has(.sub-menu) > .menu-group-title, #navMenu li:has(.sub-menu) > .menu-group-title { flex: 1 !important; }
+      }
+      @media (min-width: 769px) { .mobile-submenu-toggle { display: none !important; } }
+    </style>
+</head>
+<body>
+  <nav class="navbar">
+  <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+    <svg class="hamburger-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+      <path d="M3 12h18M3 6h18M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+    </svg>
+    <svg class="close-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" style="display:none;">
+      <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+    </svg>
+  </button>
+  
+  <button class="phone-header-btn" aria-label="Call">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+    </svg>
+  </button>
+  
+  <div class="nav-container">
+    <div class="nav-brand">
+      <a href="/" class="logo-link">
+        <img src="/assets/business-logo.webp" alt="Goblin Shark" class="logo" />
+      </a>
+    </div>
+    
+    <ul class="nav-menu" id="navMenu"><li><a href="/company-insights">Company Insights</a></li><li><a href="/about">About</a></li></ul>
+    
+    <div class="nav-cta-container">
+      <a href="/contact" class="nav-cta-btn">Contact</a>
+    </div>
+  </div>
+</nav>
+  
+  <main>
+    <section class="company-insights-overview-section" data-layout-spec="Company Insights-overview"><div class="company-insights-overview-container"><div class="company-insights-overview-content"><h1 class="company-insights-overview-title">Company Insights, mapped.</h1><p class="company-insights-overview-description">A structured, readable way to understand what it's like to work somewhere—beyond averages.</p><div class="company-insights-overview-metrics"><div class="company-insights-overview-metric-item"><h3 class="company-insights-overview-metric-title">Coverage</h3><p class="company-insights-overview-metric-text">Comprehensive data across industries and regions</p></div><div class="company-insights-overview-metric-item"><h3 class="company-insights-overview-metric-title">Update cadence</h3><p class="company-insights-overview-metric-text">Real-time insights refreshed continuously</p></div><div class="company-insights-overview-metric-item"><h3 class="company-insights-overview-metric-title">Index confidence</h3><p class="company-insights-overview-metric-text">Validated metrics with statistical reliability</p></div></div></div></div><div class="company-insights-overview-decorative-corner company-insights-overview-decorative-corner-top"><svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><defs><linearGradient id="contourGradientTop" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:rgba(11,16,38,0.08);stop-opacity:1"></stop><stop offset="100%" style="stop-color:rgba(11,16,38,0);stop-"></stop></linearGradient></defs><path d="M0,0 Q50,20 100,15 T200,10 L200,0 Z" fill="none" stroke="url(#contourGradientTop)" stroke-width="1" opacity="0.4"></path><path d="M0,20 Q50,40 100,35 T200,30 L200,0 L0,0 Z" fill="none" stroke="url(#contourGradientTop)" stroke-width="1" opacity="0.3"></path><path d="M0,40 Q50,60 100,55 T200,50 L200,0 L0,0 Z" fill="none" stroke="url(#contourGradientTop)" stroke-width="1" opacity="0.2"></path><path d="M0,60 Q50,80 100,75 T200,70 L200,0 L0,0 Z" fill="none" stroke="url(#contourGradientTop)" stroke-width="1" opacity="0.1"></path></svg></div><div class="company-insights-overview-decorative-corner company-insights-overview-decorative-corner-bottom"><svg data-no-icon-edit="true" aria-hidden="true" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><defs><linearGradient id="contourGradientBottom" x1="100%" y1="100%" x2="0%" y2="0%"><stop offset="0%" style="stop-color:rgba(11,16,38,0.08);stop-opacity:1"></stop><stop offset="100%" style="stop-color:rgba(11,16,38,0);stop-"></stop></linearGradient></defs><path d="M200,200 Q150,180 100,185 T0,190 L0,200 Z" fill="none" stroke="url(#contourGradientBottom)" stroke-width="1" opacity="0.4"></path><path d="M200,180 Q150,160 100,165 T0,170 L0,200 L200,200 Z" fill="none" stroke="url(#contourGradientBottom)" stroke-width="1" opacity="0.3"></path><path d="M200,160 Q150,140 100,145 T0,150 L0,200 L200,200 Z" fill="none" stroke="url(#contourGradientBottom)" stroke-width="1" opacity="0.2"></path><path d="M200,140 Q150,120 100,125 T0,130 L0,200 L200,200 Z" fill="none" stroke="url(#contourGradientBottom)" stroke-width="1" opacity="0.1"></path></svg></div></section>
+
+<section class="company-insights-atlas-strip-section" data-layout-spec="Company Insights-atlas-strip">
+  <div class="atlas-strip-container">
+    <div class="atlas-strip-header">
+      <h2>At-a-glance indices.</h2>
+    </div>
+    <div class="atlas-tiles-grid">
+      <div class="atlas-tile">
+        <div class="tile-value">8.2</div>
+        <h3>Stability Index</h3>
+        <p>Measures employee tenure and turnover patterns</p>
+      </div>
+      <div class="atlas-tile">
+        <div class="tile-value">$92K</div>
+        <h3>Salary Index</h3>
+        <p>Median compensation across all roles</p>
+      </div>
+      <div class="atlas-tile">
+        <div class="tile-value">7.4</div>
+        <h3>Management Signal</h3>
+        <p>Leadership effectiveness and communication quality</p>
+      </div>
+      <div class="atlas-tile">
+        <div class="tile-value">6.8</div>
+        <h3>Workload Signal</h3>
+        <p>Balance between productivity and burnout risk</p>
+      </div>
+      <div class="atlas-tile">
+        <div class="tile-value">8.9</div>
+        <h3>Growth Signal</h3>
+        <p>Career advancement and learning opportunities</p>
+      </div>
+    </div>
+  </div>
+  <svg class="grid-overlay" data-no-icon-edit="true" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" preserveAspectRatio="none">
+    <defs>
+      <pattern id="atlas-grid" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
+        <path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="1"></path>
+      </pattern>
+    </defs>
+    <rect width="1200" height="400" fill="url(#atlas-grid)"></rect>
+  </svg>
+</section>
+
+<section class="company-insights-charts-section" data-layout-spec="Company Insights-charts">
+  <div class="company-insights-charts-container">
+    <div class="company-insights-charts-grid">
+      <!-- Charts Column -->
+      <div class="company-insights-charts-column">
+        <!-- Chart Card 1 -->
+        <div class="company-insights-chart-card">
+          <h3>Salary distribution snapshot</h3>
+          <div class="company-insights-chart-visual">
+            <svg data-element-type="icon" data-icon-type="svg" viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg">
+              <!-- Y-axis -->
+              <line x1="40" y1="20" x2="40" y2="200" stroke="currentColor" stroke-width="1.5" opacity="0.3"></line>
+              <!-- X-axis -->
+              <line x1="40" y1="200" x2="380" y2="200" stroke="currentColor" stroke-width="1.5" opacity="0.3"></line>
+              <!-- Gridlines -->
+              <line x1="40" y1="60" x2="380" y2="60" stroke="currentColor" stroke-width="0.5" opacity="0.15" stroke-dasharray="4 4"></line>
+              <line x1="40" y1="100" x2="380" y2="100" stroke="currentColor" stroke-width="0.5" opacity="0.15" stroke-dasharray="4 4"></line>
+              <line x1="40" y1="140" x2="380" y2="140" stroke="currentColor" stroke-width="0.5" opacity="0.15" stroke-dasharray="4 4"></line>
+              <!-- Bars -->
+              <rect x="60" y="120" width="40" height="80" fill="var(--accent)" opacity="0.7" rx="2"></rect>
+              <rect x="110" y="90" width="40" height="110" fill="var(--accent)" opacity="0.8" rx="2"></rect>
+              <rect x="160" y="50" width="40" height="150" fill="var(--accent)" opacity="1" rx="2"></rect>
+              <rect x="210" y="70" width="40" height="130" fill="var(--accent)" opacity="0.9" rx="2"></rect>
+              <rect x="260" y="100" width="40" height="100" fill="var(--accent)" opacity="0.8" rx="2"></rect>
+              <rect x="310" y="140" width="40" height="60" fill="var(--accent)" opacity="0.6" rx="2"></rect>
+              <!-- Labels -->
+              <text x="80" y="220" font-size="11" fill="currentColor" opacity="0.6" text-anchor="middle">40k</text>
+              <text x="130" y="220" font-size="11" fill="currentColor" opacity="0.6" text-anchor="middle">60k</text>
+              <text x="180" y="220" font-size="11" fill="currentColor" opacity="0.6" text-anchor="middle">80k</text>
+              <text x="230" y="220" font-size="11" fill="currentColor" opacity="0.6" text-anchor="middle">100k</text>
+              <text x="280" y="220" font-size="11" fill="currentColor" opacity="0.6" text-anchor="middle">120k</text>
+              <text x="330" y="220" font-size="11" fill="currentColor" opacity="0.6" text-anchor="middle">140k</text>
+            </svg>
+          </div>
+          <p>See where salaries cluster for this role and location. Our salary comparison tool highlights typical ranges and outliers across cities.</p>
+        </div>
+
+        <!-- Chart Card 2 -->
+        <div class="company-insights-chart-card">
+          <h3>Stability over time</h3>
+          <div class="company-insights-chart-visual">
+            <svg data-element-type="icon" data-icon-type="svg" viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg">
+              <!-- Y-axis -->
+              <line x1="40" y1="20" x2="40" y2="200" stroke="currentColor" stroke-width="1.5" opacity="0.3"></line>
+              <!-- X-axis -->
+              <line x1="40" y1="200" x2="380" y2="200" stroke="currentColor" stroke-width="1.5" opacity="0.3"></line>
+              <!-- Gridlines -->
+              <line x1="40" y1="60" x2="380" y2="60" stroke="currentColor" stroke-width="0.5" opacity="0.15" stroke-dasharray="4 4"></line>
+              <line x1="40" y1="100" x2="380" y2="100" stroke="currentColor" stroke-width="0.5" opacity="0.15" stroke-dasharray="4 4"></line>
+              <line x1="40" y1="140" x2="380" y2="140" stroke="currentColor" stroke-width="0.5" opacity="0.15" stroke-dasharray="4 4"></line>
+              <!-- Line graph with confidence band -->
+              <path d="M60,160 L100,140 L140,120 L180,110 L220,115 L260,105 L300,100 L340,95" fill="none" stroke="var(--secondary)" stroke-width="3" opacity="0.8"></path>
+              <!-- Confidence band -->
+              <path d="M60,170 L100,150 L140,130 L180,120 L220,125 L260,115 L300,110 L340,105 L340,85 L300,90 L260,95 L220,105 L180,100 L140,110 L100,130 L60,150 Z" fill="var(--secondary)" opacity="0.15"></path>
+              <!-- Data points -->
+              <circle cx="60" cy="160" r="4" fill="var(--secondary)"></circle>
+              <circle cx="100" cy="140" r="4" fill="var(--secondary)"></circle>
+              <circle cx="140" cy="120" r="4" fill="var(--secondary)"></circle>
+              <circle cx="180" cy="110" r="4" fill="var(--secondary)"></circle>
+              <circle cx="220" cy="115" r="4" fill="var(--secondary)"></circle>
+              <circle cx="260" cy="105" r="4" fill="var(--secondary)"></circle>
+              <circle cx="300" cy="100" r="4" fill="var(--secondary)"></circle>
+              <circle cx="340" cy="95" r="4" fill="var(--secondary)"></circle>
+              <!-- Labels -->
+              <text x="60" y="220" font-size="11" fill="currentColor" opacity="0.6" text-anchor="middle">Q1</text>
+              <text x="140" y="220" font-size="11" fill="currentColor" opacity="0.6" text-anchor="middle">Q2</text>
+              <text x="220" y="220" font-size="11" fill="currentColor" opacity="0.6" text-anchor="middle">Q3</text>
+              <text x="300" y="220" font-size="11" fill="currentColor" opacity="0.6" text-anchor="middle">Q4</text>
+            </svg>
+          </div>
+          <p>Track how ratings and sentiment shift quarter-to-quarter. Consistent patterns reveal long-term culture; sudden changes signal pivotal moments.</p>
+        </div>
+
+        <!-- Chart Card 3 -->
+        <div class="company-insights-chart-card">
+          <h3>Topic sentiment balance</h3>
+          <div class="company-insights-chart-visual">
+            <svg data-element-type="icon" data-icon-type="svg" viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg">
+              <!-- Y-axis -->
+              <line x1="40" y1="20" x2="40" y2="200" stroke="currentColor" stroke-width="1.5" opacity="0.3"></line>
+              <!-- X-axis (center) -->
+              <line x1="40" y1="110" x2="380" y2="110" stroke="currentColor" stroke-width="1.5" opacity="0.3"></line>
+              <!-- Zero line marker -->
+              <text x="30" y="115" font-size="10" fill="currentColor" opacity="0.5" text-anchor="end">0</text>
+              <!-- Positive bars (above center) -->
+              <rect x="60" y="60" width="50" height="50" fill="var(--secondary)" opacity="0.8" rx="2"></rect>
+              <rect x="130" y="40" width="50" height="70" fill="var(--secondary)" opacity="0.8" rx="2"></rect>
+              <rect x="200" y="75" width="50" height="35" fill="var(--secondary)" opacity="0.8" rx="2"></rect>
+              <rect x="270" y="50" width="50" height="60" fill="var(--secondary)" opacity="0.8" rx="2"></rect>
+              <!-- Negative bars (below center) -->
+              <rect x="60" y="110" width="50" height="30" fill="var(--accent)" opacity="0.7" rx="2"></rect>
+              <rect x="130" y="110" width="50" height="20" fill="var(--accent)" opacity="0.7" rx="2"></rect>
+              <rect x="200" y="110" width="50" height="45" fill="var(--accent)" opacity="0.7" rx="2"></rect>
+              <rect x="270" y="110" width="50" height="25" fill="var(--accent)" opacity="0.7" rx="2"></rect>
+              <!-- Labels -->
+              <text x="85" y="220" font-size="10" fill="currentColor" opacity="0.6" text-anchor="middle">Culture</text>
+              <text x="155" y="220" font-size="10" fill="currentColor" opacity="0.6" text-anchor="middle">Growth</text>
+              <text x="225" y="220" font-size="10" fill="currentColor" opacity="0.6" text-anchor="middle">Comp</text>
+              <text x="295" y="220" font-size="10" fill="currentColor" opacity="0.6" text-anchor="middle">Balance</text>
+            </svg>
+          </div>
+          <p>Compare positive and negative mentions across key topics. Balanced feedback is often more trustworthy than uniformly glowing reviews.</p>
+        </div>
+      </div>
+
+      <!-- Narrative Column -->
+      <div class="company-insights-narrative-column">
+        <h2>See the shape of the story.</h2>
+        <p>Numbers tell a story when you know how to read them. Our charts translate raw feedback into visual patterns that reveal what's really happening inside a company—from salary trends to cultural shifts over time.</p>
+
+        <div class="company-insights-callout-group">
+          <div class="company-insights-callout">
+            <h3>How we avoid outliers</h3>
+            <p>We filter extreme values and weight recent data more heavily. This ensures charts reflect current reality, not one-off anomalies from years past.</p>
+          </div>
+
+          <div class="company-insights-callout">
+            <h3>What confidence means</h3>
+            <p>Shaded bands around trend lines show statistical confidence. Wider bands mean less certainty—often a sign of limited or inconsistent data.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="company-insights-reviews-section" data-layout-spec="Company Insights-reviews">
+  <div class="company-insights-reviews-container">
+    <div class="company-insights-reviews-header">
+      <h2>What people actually say.</h2>
+      <p>Curated excerpts highlight repeated patterns while preserving nuance.</p>
+    </div>
+    
+    <div class="company-insights-reviews-grid">
+      <article class="company-insights-review-card">
+        <h3>Onboarding felt seamless and intentional</h3>
+        <p>From day one, I had clear documentation, regular check-ins, and a buddy system that made ramping up straightforward. The team anticipated questions before I asked them.</p>
+        <p class="company-insights-review-meta">Product Designer · 8 months</p>
+      </article>
+      
+      <article class="company-insights-review-card">
+        <h3>Management style is collaborative, not micromanaging</h3>
+        <p>Weekly one-on-ones are genuinely about growth and blockers, not status updates. Leadership trusts you to own your work and asks how they can support rather than directing every step.</p>
+        <p class="company-insights-review-meta">Engineering Manager · 2 years</p>
+      </article>
+      
+      <article class="company-insights-review-card">
+        <h3>Growth opportunities are visible and accessible</h3>
+        <p>Career paths aren't mysterious here. There's a clear framework for advancement, and managers actively help you build skills for the next level through stretch projects and mentorship.</p>
+        <p class="company-insights-review-meta">Data Analyst · 1.5 years</p>
+      </article>
+      
+      <article class="company-insights-review-card">
+        <h3>Salary transparency reduced guesswork and anxiety</h3>
+        <p>Knowing the pay bands upfront made negotiations feel fair. The salary comparison tool helped me understand market rates, and I felt confident my offer was competitive without playing games.</p>
+        <p class="company-insights-review-meta">Sales Operations · 6 months</p>
+      </article>
+      
+      <article class="company-insights-review-card">
+        <h3>Workload is demanding but sustainable</h3>
+        <p>Yes, there are busy seasons, but the team is realistic about timelines. I've never felt pressured to work weekends regularly, and leadership actively encourages time off to recharge.</p>
+        <p class="company-insights-review-meta">Marketing Specialist · 1 year</p>
+      </article>
+      
+      <article class="company-insights-review-card">
+        <h3>Flexibility adapts to life's unpredictability</h3>
+        <p>Hybrid work is truly hybrid—not just a policy on paper. Need to shift hours for a doctor's appointment? No problem. The focus is on output and collaboration, not rigid schedules.</p>
+        <p class="company-insights-review-meta">Customer Success · 2.5 years</p>
+      </article>
+    </div>
+  </div>
+  
+  <div class="company-insights-reviews-contour-lines" aria-hidden="true">
+    <svg data-no-icon-edit="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="contourGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" style="stop-color:rgba(0,183,255,0.12);stop-opacity:1"></stop>
+          <stop offset="50%" style="stop-color:rgba(139,92,246,0.08);stop-opacity:1"></stop>
+          <stop offset="100%" style="stop-color:rgba(255,42,99,0.06);stop-opacity:1"></stop>
+        </linearGradient>
+      </defs>
+      <path d="M0,200 Q300,180 600,200 T1200,200" stroke="url(#contourGradient)" stroke-width="1.5" fill="none" opacity="0.4"></path>
+      <path d="M0,350 Q300,330 600,350 T1200,350" stroke="url(#contourGradient)" stroke-width="1.5" fill="none" opacity="0.35"></path>
+      <path d="M0,500 Q300,480 600,500 T1200,500" stroke="url(#contourGradient)" stroke-width="1.5" fill="none" opacity="0.3"></path>
+      <path d="M0,650 Q300,630 600,650 T1200,650" stroke="url(#contourGradient)" stroke-width="1.5" fill="none" opacity="0.25"></path>
+    </svg>
+  </div>
+</section>
+
+<section class="company-insights-faq-section" data-layout-spec="Company Insights-faq">
+  <div class="company-insights-faq-container">
+    <div class="company-insights-faq-header">
+      <h2>Method questions, answered.</h2>
+      <p>Transparency is at the core of our approach. Here's how we collect, verify, and present workplace insights to help you make informed decisions.</p>
+    </div>
+    <div class="company-insights-faq-grid">
+      <div class="company-insights-faq-item">
+        <h3>Where does the data come from?</h3>
+        <p>Our data is sourced directly from current and former employees who voluntarily share their workplace experiences. We aggregate reviews, salary reports, and company ratings from verified contributors to build comprehensive company profiles.</p>
+      </div>
+      <div class="company-insights-faq-item">
+        <h3>How often is it updated?</h3>
+        <p>Company data refreshes in real-time as new reviews and salary reports are submitted. Index scores recalculate weekly to reflect the latest trends, ensuring you always see the most current workplace insights available.</p>
+      </div>
+      <div class="company-insights-faq-item">
+        <h3>How do you handle biased reviews?</h3>
+        <p>We use a multi-layer verification process including email confirmation, employment validation, and algorithmic pattern detection. Reviews flagged as potentially biased undergo manual review before publication, and we maintain strict guidelines against fake or malicious content.</p>
+      </div>
+      <div class="company-insights-faq-item">
+        <h3>Can I compare companies fairly?</h3>
+        <p>Yes. Our salary comparison tool normalizes data by location, role, and experience level. Index scores use weighted algorithms that account for company size, industry benchmarks, and review volume to ensure apples-to-apples comparisons across different organizations.</p>
+      </div>
+      <div class="company-insights-faq-item">
+        <h3>What does an index score represent?</h3>
+        <p>An index score is a composite metric combining culture ratings, compensation competitiveness, career growth opportunities, and work-life balance. Scores range from 0-100, with higher numbers indicating stronger overall employee satisfaction and workplace quality.</p>
+      </div>
+      <div class="company-insights-faq-item">
+        <h3>How do you protect privacy?</h3>
+        <p>All reviews are anonymized before publication. We strip identifying metadata, aggregate salary data into ranges, and never share individual contributor information with employers. Your feedback remains confidential while contributing to the collective knowledge base.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="company-insights-cta-section" data-layout-spec="Company Insights-cta">
+  <div class="company-insights-cta-container">
+    <div class="company-insights-cta-content">
+      <h2 class="company-insights-cta-heading">Want an atlas view for your next decision?</h2>
+      <p class="company-insights-cta-text">We'll walk you through the metrics and show sample company pages.</p>
+      <div class="company-insights-cta-buttons">
+        <a href="contact.html" class="company-insights-cta-btn company-insights-cta-btn-primary">Contact us</a>
+        <a href="about.html" class="company-insights-cta-btn company-insights-cta-btn-secondary">Learn about My Business</a>
+      </div>
+    </div>
+  </div>
+  <svg class="company-insights-cta-ripple" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs>
+      <radialGradient id="sonarRipple1" cx="50%" cy="50%">
+        <stop offset="0%" style="stop-color:rgba(139,92,246,0.12);stop-opacity:1"></stop>
+        <stop offset="50%" style="stop-color:rgba(139,92,246,0.04);stop-opacity:1"></stop>
+        <stop offset="100%" style="stop-color:rgba(139,92,246,0);stop-"></stop>
+      </radialGradient>
+      <radialGradient id="sonarRipple2" cx="50%" cy="50%">
+        <stop offset="0%" style="stop-color:rgba(0,183,255,0.08);stop-opacity:1"></stop>
+        <stop offset="50%" style="stop-color:rgba(0,183,255,0.03);stop-opacity:1"></stop>
+        <stop offset="100%" style="stop-color:rgba(0,183,255,0);stop-"></stop>
+      </radialGradient>
+    </defs>
+    <circle cx="600" cy="400" r="280" fill="url(#sonarRipple1)" opacity="0.6"></circle>
+    <circle cx="600" cy="400" r="420" fill="url(#sonarRipple2)" opacity="0.4"></circle>
+    <circle cx="600" cy="400" r="560" fill="url(#sonarRipple1)" opacity="0.2"></circle>
+  </svg>
+</section>
+  </main>
+  
+  <footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-content">
+      <div class="footer-column footer-about">
+        <img src="/assets/business-logo.webp" alt="Goblin Shark" class="logo" />
+        <p class="footer-description">Transforming recruitment with innovative HR technology solutions. Find the right talent, faster.</p>
+        <div class="social-links">
+          <a href="[facebook_handle]" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="[instagram_handle]" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="[whatsapp_handle]" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+      
+      <div class="footer-column footer-links">
+        <h3 class="footer-heading">Quick Links</h3>
+        <ul class="footer-nav">
+          <li><a href="/company-insights">Company Insights</a></li>
+          <li><a href="/about">About</a></li>
+          <li><a href="/contact">Contact</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column footer-contact">
+        <h3 class="footer-heading">Contact Us</h3>
+        <ul class="contact-info">
+          <li>
+            <i class="fas fa-envelope"></i>
+            <a href="mailto:[business_email]">[business_email]</a>
+          </li>
+          <li>
+            <i class="fas fa-phone"></i>
+            <a href="tel:[business_phone]">[business_phone]</a>
+          </li>
+          <li><a href="/"><i class="fas fa-map-marker-alt"></i>
+            <span>[business_address]</span></a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column footer-legal">
+        <h3 class="footer-heading">Legal</h3>
+        <ul class="footer-nav">
+          <li><a href="/privacy">Privacy Policy</a></li>
+          <li><a href="/terms">Terms &amp; Conditions</a></li>
+          <li><a href="/accessibility">Accessibility</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p class="copyright">© 2026 Goblin Shark. All rights reserved.</p>
+      <a href="https://zappy5.com" target="_blank" class="zappy-attribution">Generated by Zappy</a>
+    </div>
+  </div>
+</footer>
+  
+  <a href="https://wa.me/[whatsapp_handle]" class="whatsapp-float" aria-label="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+  
+  <script src="/script.js"></script>
+
+    <div data-integration="accessibility:toolbar"></div>
+
+    <script id="zappy-mobile-submenu-script">
+    (function() {
+      function initMobileSubmenuToggles() {
+        if (window.innerWidth > 768) {
+          document.querySelectorAll('.mobile-submenu-toggle').forEach(function(btn) { btn.remove(); });
+          document.querySelectorAll('.sub-menu.mobile-expanded').forEach(function(menu) { menu.classList.remove('mobile-expanded'); });
+          return;
+        }
+        var items = document.querySelectorAll('.nav-menu li:has(.sub-menu), nav li:has(.sub-menu), .navbar li:has(.sub-menu), #navMenu li:has(.sub-menu)');
+        items.forEach(function(li) {
+          if (li.querySelector('.mobile-submenu-toggle')) return;
+          var submenu = li.querySelector('.sub-menu');
+          var parentLink = li.querySelector(':scope > a');
+          if (!submenu || !parentLink) return;
+          var toggleBtn = document.createElement('button');
+          toggleBtn.className = 'mobile-submenu-toggle';
+          toggleBtn.setAttribute('aria-label', 'Toggle submenu');
+          toggleBtn.setAttribute('type', 'button');
+          parentLink.insertAdjacentElement('afterend', toggleBtn);
+          toggleBtn.addEventListener('click', function(e) {
+            e.preventDefault(); e.stopPropagation();
+            document.querySelectorAll('.sub-menu.mobile-expanded').forEach(function(menu) {
+              if (menu !== submenu) { menu.classList.remove('mobile-expanded'); var t = menu.parentElement.querySelector('.mobile-submenu-toggle'); if(t) t.classList.remove('expanded'); }
+            });
+            submenu.classList.toggle('mobile-expanded');
+            toggleBtn.classList.toggle('expanded');
+          });
+        });
+      }
+      if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', initMobileSubmenuToggles); }
+      else { initMobileSubmenuToggles(); }
+      var resizeTimer; window.addEventListener('resize', function() { clearTimeout(resizeTimer); resizeTimer = setTimeout(initMobileSubmenuToggles, 250); });
+      // Re-initialize when mobile menu becomes visible (MutationObserver)
+      var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          if (mutation.type === 'attributes') {
+            var target = mutation.target;
+            if (target.classList && (target.classList.contains('active') || target.classList.contains('open'))) {
+              setTimeout(initMobileSubmenuToggles, 100);
+            }
+          }
+        });
+      });
+      setTimeout(function() {
+        document.querySelectorAll('.mobile-menu, .nav-menu, #navMenu, nav').forEach(function(menu) {
+          observer.observe(menu, { attributes: true, attributeFilter: ['class', 'style'] });
+        });
+      }, 500);
+    })();
+    </script>
+</body></html>
